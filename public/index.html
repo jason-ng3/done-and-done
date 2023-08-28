@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="stylesheets/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.3.js" 
+          integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" 
+          crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.js"></script>
+  <title>Todo Lists</title>
+</head>
+<body>
+  <nav>
+    <div class="list-heading"></div>
+    <div class="nav-list"></div>
+    <div class="completed-heading"></div>
+    <div class="nav-completed-list"></div>
+  </nav>
+  <main>
+    <div class="modal hide">
+      <form action method="post" class="todo-form" data-id="" data-completed="" novalidate>
+        <dl>
+          <dt><label for="title">Title</label></dt>
+          <dd><input type="text" id="title" name="title" minlength="3" placeholder="Item 1" required></dd>
+
+          <dt><label for="due">Due Date</label></dt>
+          <dd>
+            <select id="due-day" name="day">
+              <option value="00">Day</option>
+              <option value="01">1</option>
+              <option value="02">2</option>
+              <option value="03">3</option>
+              <option value="04">4</option>
+              <option value="05">5</option>
+              <option value="06">6</option>
+              <option value="07">7</option>
+              <option value="08">8</option>
+              <option value="09">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option>
+              <option value="31">31</option>
+            </select><span>/</span>
+            <select id="due-month" name="month">
+              <option value="00">Month</option>
+              <option value="01">January</option>
+              <option value="02">February</option>
+              <option value="03">March</option>
+              <option value="04">April</option>
+              <option value="05">May</option>
+              <option value="06">June</option>
+              <option value="07">July</option>
+              <option value="08">August</option>
+              <option value="09">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+            <select id="due-year" name="year" placeholder="year">
+              <option value="0000">Year</option>
+              <option>2014</option>
+              <option>2015</option>
+              <option>2016</option>
+              <option>2017</option>
+              <option>2018</option>
+              <option>2019</option>
+              <option>2020</option>
+              <option>2021</option>
+              <option>2022</option>
+              <option>2023</option>
+              <option>2024</option>
+              <option>2025</option>
+            </select>
+          </dd>
+
+          <dt><label for="description">Description</label></dt>
+          <dd><textarea cols="50" id="description" name="description" rows="7" placeholder="Description"></textarea></dd>
+        </dl>
+        <button type="submit">Save</button>
+        <button name="complete">Mark As Complete</button>
+      </form>
+    </div>
+    <div class="overlay hide"></div>
+    <div class="todo-list-heading">
+    </div>  
+    <a class="add-new-todo">+ Add new to do</a>
+    <div class="todo-list" data-date="" data-all-or-completed="all"></div>
+  </main>
+
+  <script id="todo-heading" type="text/x-handlebars">
+    <h1>All Todos</h1>
+    <span>{{todos.length}}</span>
+  </script>
+
+  <script id="nav-completed-heading" type="text/x-handlebars">
+    <h1>Completed</h1>
+    <span>{{todos.length}}</span>
+  </script>
+  
+  <script id="todo-list" type="text/x-handlebars">
+    {{#each todos}}
+    <div class="todo" data-id="{{id}}" data-completed="{{completed}}">
+      {{#if completed}}
+      <input type="checkbox" name="todo-{{id}}" id="todo-{{id}}" checked>
+      {{else}}
+      <input type="checkbox" name="todo-{{id}}" id="todo-{{id}}" data-id="{{id}}">
+      {{/if}}
+      {{#if (hasValue month)}}
+        {{#if (hasValue year)}}
+        <label for="todo-{{id}}" class="{{isCompleted completed}}">{{title}} - {{month}}/{{formatYear year}}</label>
+        {{else}}
+        <label for="todo-{{id}}" class="{{isCompleted completed}}">{{title}} - No Due Date</label>
+        {{/if}}
+      {{else}}
+        <label for="todo-{{id}}" class="{{isCompleted completed}}">{{title}} - No Due Date</label>
+      {{/if}}
+    </div>
+    <div class="delete">
+      <a class="delete-btn" data-id="{{id}}">Delete</a>
+    </div>
+    {{/each}}
+  </script>
+
+  <script id="nav-list" type="text/x-handlebars">
+    <dl>
+    {{#each todosByDate}}
+      <div class="todo-group" data-date="{{date}}">
+        <dt>{{formatDate date}}</dt>
+        <dd>{{todos.length}}</dd>
+      </div>
+    {{/each}}
+    </dl>
+  </script>
+  
+  <script id="nav-completed-list" type="text/x-handlebars">
+    <dl>
+      {{#each completedTodosByDate}}
+        <div class="completed-todo-group" data-date="{{date}}">
+          <dt>{{formatDate date}}</dt>
+          <dd>{{todos.length}}</dd>
+        </div>
+      {{/each}}
+    </dl>
+  </script>
+  <script src="javascripts/mvc_app.js"></script>
+</body>
+</html>

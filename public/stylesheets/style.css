@@ -1,0 +1,181 @@
+/* * {
+  outline: 1px solid red;
+} */
+
+body {
+  position: relative;
+  padding: 50px;
+  font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 0;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: #00B7FF;
+}
+
+main {
+  background-color: white;
+  display: inline-block;
+  width: 70%;
+  vertical-align: top;
+}
+
+div.todo-list-heading {
+  font-size: 18px;
+}
+
+div.todo-list-heading span {
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+div.todo-list-heading h1 {
+  font-size: 21px;
+  padding-left: 14px;
+}
+
+/* div.todo-list-heading a {
+  padding: 10px 14px;
+  font-size: 16px;
+  display: block;
+} */
+
+a.add-new-todo {
+  padding: 10px 14px;
+  font-size: 16px;
+  display: block;
+  cursor: pointer;
+}
+
+div.todo-list {
+  font-size: 16px;
+}
+
+div.todo-list-heading h1 {
+  display: inline-block;
+}
+
+div.todo {
+  display: inline-block;
+  width: 85%;
+  padding: 10px;
+  border-top: lightgray 1px solid;
+  border-bottom: lightgray 1px solid;
+}
+
+div.todo p {
+  display: inline-block;
+  margin-bottom: 0px;
+}
+
+div.todo label {
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 400px;
+}
+
+div.delete {
+  float: right;
+  margin-right: 25px;
+}
+
+a.delete-btn {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 11px;
+  cursor: pointer;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
+/* modal & overlay*/
+div.modal {
+  position: absolute;
+  width: 600px;
+  top: 25%;
+  left: 50%;
+  margin-left: -275px;
+  background-color: white;
+  z-index: 3;
+}
+
+div.modal label {
+  font-size: 18px;
+}
+
+div.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+.hide {
+  display: none;
+}
+
+/* navigation */
+nav {
+  background-color: darkslategray;
+  color: darkgray;
+  display: inline-block;
+  width: 30%;
+  font-size: 1rem;
+  height: 1000px;
+}
+
+.list-heading, .completed-heading {
+  width: 50%;
+  margin-left: 40%;
+}
+
+.list-heading h1, .completed-heading h1 {
+  display: inline-block;
+  font-size: 21px;
+  margin-top: 15px;
+  margin-bottom: 0;
+}
+
+.list-heading span, .completed-heading span {
+  font-size: 14px;
+  margin-left: 40px;
+  margin-top: 18px;
+  float: right;
+}
+
+nav .todo-group, .completed-todo-group {
+  padding-top: 25px;
+  width: 50%;
+  margin-left: 40%;
+}
+
+nav dl {
+  margin: 0;
+  padding-bottom: 60px;
+}
+
+nav dt {
+  display: inline-block;
+}
+
+nav .completed-todo-group dt {
+  text-decoration: line-through;
+}
+
+nav dd {
+  float: right;
+}
+
+.highlight {
+  background-color: black;
+  color: white;
+}
